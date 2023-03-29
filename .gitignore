@@ -1,0 +1,52 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env*.local
+
+# Used env file
+.env
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+NavalAlmanac.md
+graphqlspec/Section 1 -- Overview.md
+graphqlspec/Section 2 -- Language.md
+graphqlspec/Section 3 -- Type System.md
+graphqlspec/Section 4 -- Introspection.md
+graphqlspec/Section 5 -- Validation.md
+graphqlspec/Section 6 -- Execution.md
+graphqlspec/Section 7 -- Response.md
+graphqlspec/Appendix A -- Notation Conventions.md
+graphqlspec/Appendix B -- Grammar Summary.md
+graphqlspec/GraphQL.md
+data/limits2023.md
