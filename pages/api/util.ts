@@ -111,7 +111,7 @@ export const makeChain = (vectorstore: HNSWLib, onTokenStream?: (token: string) 
   const docChain = loadQAChain(
     new OpenAIChat({
       temperature: 0,
-      modelName: 'gpt-4',
+      modelName: 'gpt-3.5-turbo',
       streaming: Boolean(onTokenStream),
       callbackManager: {
         handleNewToken: onTokenStream,
