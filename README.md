@@ -1,22 +1,23 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# **Hometown Chatbot**
 
-## Getting Started
+Hometown Chatbot is a chatbot application built using Next.js, React, and OpenAI. This project allows users to communicate with an AI-based chatbot that provides relevant answers to users' queries. The application uses natural language processing (NLP) technology to understand users' queries and provide accurate responses.
+
+## **Installation**
+
+Before installing Hometown Chatbot, ensure that Node.js is installed on your system. After installing Node.js, follow the steps below to install the application:
+
+1. Clone the project repository from GitHub.
+2. Navigate to the project directory using a terminal or command prompt.
+3. Run **`npm install`** to install the project dependencies.
+4. Create a **`.env`** file in the project root directory and configure the environment variables as required.
+
 
 First, create a new `.env` file from `.env.example` and add your OpenAI API key found [here](https://platform.openai.com/account/api-keys).
 
 ```bash
 cp .env.example .env
 ```
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/en/download/)
-- [Yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
-- `wget` (on macOS, you can install this with `brew install wget`)
-
-Next, we'll need to load our data source.
-
-### Data Ingestion
+### **Data Ingestion**
 
 Data ingestion happens in two steps.
 
@@ -36,39 +37,81 @@ We save it to a directory because we only want to run the (expensive) data inges
 The Next.js server relies on the presence of the `data/` directory. Please
 make sure to run this before moving on to the next step.
 
-### Running the Server
+## **Usage**
 
-Then, run the development server:
+To start the Hometown Chatbot application, run the following command in the terminal:
 
-```bash
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+yarn dev
 
-### Deploying the server
+```
 
-The production version of this repo is hosted on
-[fly](https://chat-langchainjs.fly.dev/). To deploy your own server on Fly, you
-can use the provided `fly.toml` and `Dockerfile` as a starting point.
+Once the application is started, you can access it by navigating to **`http://localhost:3000`** in your web browser.
 
-**Note:** As a Next.js app it seems like Vercel is a natural place to
-host this site. Unfortunately there are
-[limitations](https://github.com/websockets/ws/issues/1786#issuecomment-678315435)
-to secure websockets using `ws` with Next.js which requires using a custom
-server which cannot be hosted on Vercel. Even using server side events, it
-seems, Vercel's serverless functions seem to prohibit streaming responses
-(e.g. see
-[here](https://github.com/vercel/next.js/issues/9965#issuecomment-820156947))
+## **Scripts**
 
-## Inspirations
+The following scripts are available in the project:
+
+- **`dev`**: Start the development server.
+- **`build`**: Build the production-ready application.
+- **`start`**: Start the production-ready application.
+- **`lint`**: Lint the project files using ESLint.
+- **`download`**: Download data required for the chatbot to function.
+- **`ingest`**: Ingest the downloaded data into the chatbot.
+
+## **Dependencies**
+
+The following dependencies are required to run the Hometown Chatbot application:
+
+- **`@emotion/react`**
+- **`@emotion/styled`**
+- **`@microsoft/fetch-event-source`**
+- **`@mui/material`**
+- **`dotenv`**
+- **`hnswlib-node`**
+- **`langchain`**
+- **`next`**
+- **`openai`**
+- **`react`**
+- **`react-dom`**
+- **`react-markdown`**
+- **`remark-gfm`**
+- **`sharp`**
+- **`ws`**
+
+The following devDependencies are required for development purposes:
+
+- **`@types/adm-zip`**
+- **`@types/node`**
+- **`@types/react`**
+- **`@types/react-dom`**
+- **`@types/ws`**
+- **`cohere-ai`**
+- **`ts-node`**
+- **`tsx`**
+- **`typescript`**
+
+## **Contributing**
+
+Contributions to Hometown Chatbot are welcome. If you find any bugs or issues, please raise them on the project's GitHub repository. You can also contribute to the project by submitting pull requests.
+
+## **License**
+
+Hometown Chatbot is open-source software licensed under the **[MIT license](https://opensource.org/licenses/MIT)**.
+
+## **Deploying the server**
+
+Depolyed to Vercel
+
+## **Inspirations**
 
 This repo borrows heavily from
 
 - [ChatLangChain](https://github.com/hwchase17/chat-langchain) - for the backend and data ingestion logic
 - [LangChain Chat NextJS](https://github.com/zahidkhawaja/langchain-chat-nextjs) - for the frontend.
 
-## How To Run on Your Example
+## **How To Run on Your Example**
 
 If you'd like to chat your own data, you need to:
 
