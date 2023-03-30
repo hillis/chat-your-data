@@ -2581,7 +2581,7 @@ kleur@^4.0.3:
   resolved "https://registry.npmjs.org/kleur/-/kleur-4.1.5.tgz"
   integrity sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==
 
-langchain@0.0.22:
+langchain@^0.0.22:
   version "0.0.22"
   resolved "https://registry.yarnpkg.com/langchain/-/langchain-0.0.22.tgz#ae42fc7ffebd7ef57c5d2b66a85da9adf54d7f66"
   integrity sha512-i6Lon2S3TK/7eHLwxsTccDrec+O1ZVdGfndwpzCRVli9X4K7sQ05h04T6FAOLREb+sspmGrZy407ZXS4CyXhRw==
