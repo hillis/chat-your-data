@@ -19,7 +19,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [messageState, setMessageState] = useState<{ messages: Message[], pending?: string, history: [string, string][] }>({
     messages: [{
-      "message": "Hi, I'm an Hometown Lenders AI assistant for FHA Loans. How can I help you?",
+      "message": "Hi, I'm an AI assistant for you. How can I help you?",
       "type": "apiMessage"
     }],
     history: []
@@ -118,9 +118,9 @@ export default function Home() {
     <>
       <Head>
         {/* <!-- Primary Meta Tags --> */}
-        <title>Hometown FHA: Chatbot</title>
-        <meta name="title" content="Hometown FHA: Chatbot" />
-        <meta name="description" content="FHA Loan information for Hometown Lenders Customers" />
+        <title>Chatbot</title>
+        <meta name="title" content="Chatbot" />
+        <meta name="description" content="Chatbot" />
 
         {/* <!-- Open Graph / Facebook --> */}
 
@@ -131,15 +131,15 @@ export default function Home() {
       </Head>
       <div className={styles.topnav}>
         <div>
-          <Link href="/"><h1 className={styles.navlogo}>Hometown FHA: Chatbot</h1></Link>
+          <Link href="/"><h1 className={styles.navlogo}>P2I: Chatbot</h1></Link>
         </div>
         <div className = {styles.navlinks}>
           <a
-            href="https://www.hometownlenders.com/"
+            href="https://www.printtwoimpress.com/"
             target="_blank"
             rel="noreferrer"
           >
-            Hometown Lenders
+            Print 2 Impress
           </a>
       
         </div>
