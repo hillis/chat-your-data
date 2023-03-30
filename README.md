@@ -20,7 +20,7 @@ Next, we'll need to load our data source.
 
 Data ingestion happens in two steps.
 
-First, you should download the book / source and format it into something readable. In my case I downloaded the book from [here](https://www.navalmanack.com/) and converted it into `md` format using Calibre. Add that source to the project folder and update `FILENAME` in `ingest.ts` to match the filename.
+First, you should download the book / source and format it into something readable and converted it into `md` format.  Add that source to the project folder and update `FILENAME` in `ingest.ts` to match the filename.
 
 Next, install dependencies and run the ingestion script:
 
