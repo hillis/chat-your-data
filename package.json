@@ -20,7 +20,7 @@
     "eslint": "8.34.0",
     "eslint-config-next": "^13.2.4",
     "hnswlib-node": "^1.2.0",
-    "langchain": "^0.0.22",
+    "langchain": "^0.0.44",
     "next": "^13.2.4",
     "openai": "^3.1.0",
     "pdfjs-dist": "^3.4.120",
