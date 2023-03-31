@@ -2,7 +2,7 @@
   "functions": {
     "pages/api/chat.js": {
       "includeFiles": "data/**",
-      "maxDuration": 30
+      "maxDuration": 10
     }
   }
 }
