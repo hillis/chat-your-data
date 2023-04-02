@@ -1,10 +1,10 @@
 import { OpenAIChat, BaseLLM } from "langchain/llms";
 import { Document } from "langchain/document";
-import { LLMChain, VectorDBQAChain, ChainValues, StuffDocumentsChain } from "langchain/chains";
+import { LLMChain, VectorDBQAChain, StuffDocumentsChain } from "langchain/chains";
 import { HNSWLib } from "langchain/vectorstores";
 import { PromptTemplate } from "langchain/prompts";
 import { LLMChainInput } from "langchain/dist/chains/llm_chain";
-// import { ChainValues } from "langchain/schema";
+import { ChainValues } from "langchain/schema";
 
 const SYSTEM_MESSAGE = PromptTemplate.fromTemplate(
   `You are an AI assistant for the FHA Home Loans. Anything you are not able to answer refer the user to Hometown Lenders, Inc.
