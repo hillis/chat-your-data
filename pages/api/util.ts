@@ -113,7 +113,7 @@ export const makeChain = (vectorstore: HNSWLib, onTokenStream?: (token: string) 
     new OpenAIChat({
       temperature: 0,
       // modelName: 'gpt-4',
-      streaming: Boolean(onTokenStream),
+      streaming: true,
       callbackManager: {
         handleNewToken: onTokenStream,
       }
