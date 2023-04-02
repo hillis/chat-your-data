@@ -906,11 +906,6 @@ array-includes@^3.1.5, array-includes@^3.1.6:
     get-intrinsic "^1.1.3"
     is-string "^1.0.7"
 
-array-keyed-map@^2.1.3:
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/array-keyed-map/-/array-keyed-map-2.1.3.tgz#0d5c06ed58ccba2755a4f5bfb7a935a31f395b18"
-  integrity sha512-JIUwuFakO+jHjxyp4YgSiKXSZeC0U+R1jR94bXWBcVlFRBycqXlb+kH9JHxBGcxnVuSqx5bnn0Qz9xtSeKOjiA==
-
 array-union@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/array-union/-/array-union-2.1.0.tgz"
@@ -2146,12 +2141,10 @@ gopd@^1.0.1:
   dependencies:
     get-intrinsic "^1.1.3"
 
-gpt3-tokenizer@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/gpt3-tokenizer/-/gpt3-tokenizer-1.1.5.tgz#79e5f96c435daf9c41a81117411ebce3bf475e78"
-  integrity sha512-O9iCL8MqGR0Oe9wTh0YftzIbysypNQmS5a5JG3cB3M4LMYjlAVvNnf8LUzVY9MrI7tj+YLY356uHtO2lLX2HpA==
-  dependencies:
-    array-keyed-map "^2.1.3"
+gpt-3-encoder@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/gpt-3-encoder/-/gpt-3-encoder-1.1.4.tgz#d6cdaacf5824857e133b6065247c757fc7e4fa72"
+  integrity sha512-fSQRePV+HUAhCn7+7HL7lNIXNm6eaFWFbNLOOGtmSJ0qJycyQvj60OvRlH7mee8xAMjBDNRdMXlMwjAbMTDjkg==
 
 graceful-fs@^4.2.4:
   version "4.2.10"
@@ -2609,10 +2602,10 @@ kleur@^4.0.3:
   resolved "https://registry.npmjs.org/kleur/-/kleur-4.1.5.tgz"
   integrity sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==
 
-langchain@^0.0.23:
-  version "0.0.23"
-  resolved "https://registry.yarnpkg.com/langchain/-/langchain-0.0.23.tgz#d693e66e3e5b2eb61adc4e2df5c66efa004ac941"
-  integrity sha512-vyRI5o0woBk8jY/+W0edEYjyMnrc85w+BPT1+CREurSQGQD1HChqt1mc4JtJVpnYv9htACbPhRKX9neReLuFGQ==
+langchain@0.0.22:
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/langchain/-/langchain-0.0.22.tgz#ae42fc7ffebd7ef57c5d2b66a85da9adf54d7f66"
+  integrity sha512-i6Lon2S3TK/7eHLwxsTccDrec+O1ZVdGfndwpzCRVli9X4K7sQ05h04T6FAOLREb+sspmGrZy407ZXS4CyXhRw==
   dependencies:
     browser-or-node "^2.1.1"
     d3-dsv "^3.0.1"
@@ -2620,7 +2613,7 @@ langchain@^0.0.23:
     eventsource-parser "^0.1.0"
     exponential-backoff "^3.1.0"
     expr-eval "^2.0.2"
-    gpt3-tokenizer "^1.1.5"
+    gpt-3-encoder "^1.1.4"
     jsonpointer "^5.0.1"
     openai "^3.2.0"
     p-queue "^7.3.4"
