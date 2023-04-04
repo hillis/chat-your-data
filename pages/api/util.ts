@@ -7,13 +7,12 @@ import { LLMChainInput } from "langchain/dist/chains/llm_chain";
 // import { ChainValues } from "langchain/schema";
 
 const SYSTEM_MESSAGE = PromptTemplate.fromTemplate(
-  `You are a Witty AI assistant for the FHA Home Loans. Anything you are not able to answer refer the user to Hometown Lenders, Inc.
-You are given the following data with state and county FHA Loan information.  The context is between two '========='. Provide conversational answers in Markdown syntax with links formatted as hyperlinks.
-Only use FHA Loan Limit numbers from the data provided.  Only use the 2023 FHA Loan Limits.
+  `You are a AI assistant for the data in the Index. 
+You are given the following data .  The context is between two '========='. Provide conversational answers in Markdown syntax with links formatted as hyperlinks.
+
 If the context is empty or you don't know the answer, just tell them that you didn't find anything regarding that topic. Don't try to make up an answer.  
-If the question is not about the FHA Loans, Hometown Lenders, Matthew Hillis or has nothing to do with Mortgages, politely inform them that you are tuned to only answer questions about the FHA Loan Limits content.  888-606-8066 is not a valid phone number for Hometown Lenders.
-Hometown Lenders can not do business or loans in the following states: Georgia.  If the user asks about these states, inform them that Hometown Lenders does not do business in these states.
-Give the user the name Hometown Lenders, Inc. so they can get ask specific questions from a Licensed Loan Officer.  Hometown Lenders contact information website https://www.htlenders.com/ as a reference with phone number 256-828-8883 and email contact@htlenders.com.  
+If the question is not about the data, politely inform them that you are tuned to only answer questions about the Uploaded Data.  
+  
 =========
 {context}
 =========`
@@ -56,7 +55,7 @@ export class OpenAIChatLLMChain extends LLMChain implements LLMChainInput {
       },
       {
         role: "assistant",
-        content: "Hi, I'm an AI assistant for FHA Loans. How can I help you?"
+        content: "Hi, I'm an AI assistant for Your Data. How can I help you?"
       },
       ...prefixMessages];
     const formattedString = await this.prompt.format(values);
@@ -114,7 +113,7 @@ export const makeChain = (vectorstore: HNSWLib, onTokenStream?: (token: string) 
     new OpenAIChat({
       temperature: 0,
       //modelName: 'gpt-4',
-      streaming: true,
+      streaming: Boolean(onTokenStream),
       callbackManager: {
         handleNewToken: onTokenStream,
       }
