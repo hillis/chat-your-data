@@ -1,6 +1,6 @@
 {
-  "name": "hometown-chatbot",
-  "version": "0.0.3",
+  "name": "chat-your-data",
+  "version": "0.0.4",
   "private": true,
   "type": "module",
   "scripts": {
