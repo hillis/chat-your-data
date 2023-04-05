@@ -8,7 +8,7 @@ Before installing Chat your Data, ensure that Node.js is installed on your syste
 
 1. Clone the project repository from GitHub.
 2. Navigate to the project directory using a terminal or command prompt.
-3. Run **`npm install`** to install the project dependencies.
+3. Run **`yarn install`** to install the project dependencies.
 4. Create a **`.env`** file in the project root directory and configure the environment variables as required.
 
 
