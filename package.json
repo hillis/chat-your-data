@@ -16,6 +16,7 @@
     "@emotion/styled": "^11.10.6",
     "@microsoft/fetch-event-source": "^2.0.1",
     "@mui/material": "^5.11.5",
+    "@pinecone-database/pinecone": "^0.0.12",
     "@vercel/analytics": "^0.1.11",
     "dotenv": "^16.0.3",
     "eslint": "8.37.0",
@@ -40,6 +41,7 @@
     "@types/react-dom": "18.0.11",
     "@types/ws": "^8.5.4",
     "cohere-ai": "^6.1.0",
+    "prettier": "^2.8.7",
     "ts-node": "^10.9.1",
     "tsx": "^3.12.6",
     "typescript": "5.0.3"
