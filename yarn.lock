@@ -2466,10 +2466,10 @@ kleur@^4.0.3:
   resolved "https://registry.npmjs.org/kleur/-/kleur-4.1.5.tgz"
   integrity sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==
 
-langchain@0.0.45:
-  version "0.0.45"
-  resolved "https://registry.yarnpkg.com/langchain/-/langchain-0.0.45.tgz#6b524bbc073c610b437a66a133cbf16372761f35"
-  integrity sha512-Uonl6W5ZgjTUQJeWhIpXrU2p94b9J/QBu9JKnM5lIcm+S2t9AIIRpgK/I3oRWtzeTtimfro+mMGySGb18n0RcA==
+langchain@^0.0.48:
+  version "0.0.48"
+  resolved "https://registry.yarnpkg.com/langchain/-/langchain-0.0.48.tgz#41bc970076cbd97868be66411a02a84b71afc40f"
+  integrity sha512-MGMSm3TcCf9yq8wVIPe8LmhAQ4Z7e7nq3i34OnR+IEtn1uRdk8EjWPutHjSqbPDNQfbr6CCNcnK4obK2/wIrwg==
   dependencies:
     "@anthropic-ai/sdk" "^0.4.2"
     "@fortaine/fetch-event-source" "^3.0.6"
@@ -3854,6 +3854,11 @@ synckit@^0.8.4:
   dependencies:
     "@pkgr/utils" "^2.3.1"
     tslib "^2.5.0"
+
+tailwind-merge@^1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/tailwind-merge/-/tailwind-merge-1.12.0.tgz#747d09d64a25a4864150e8930f8e436866066cc8"
+  integrity sha512-Y17eDp7FtN1+JJ4OY0Bqv9OA41O+MS8c1Iyr3T6JFLnOgLg3EvcyMKZAnQ8AGyvB5Nxm3t9Xb5Mhe139m8QT/g==
 
 tapable@^2.2.0:
   version "2.2.1"
