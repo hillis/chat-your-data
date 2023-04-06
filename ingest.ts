@@ -7,7 +7,7 @@ const FILENAME = "./data/limits2023.md";
 
 
 export const run = async () => {
-  const loader = new DirectoryLoader("sportsdata", {
+  const loader = new DirectoryLoader("docs/sportsdata", {
     ".md": (path) => new TextLoader(path),
     ".pdf": (path) => new PDFLoader(path),
   });
