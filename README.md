@@ -115,6 +115,7 @@ This repo borrows heavily from
 
 - [ChatLangChain](https://github.com/hwchase17/chat-langchain) - for the backend and data ingestion logic
 - [LangChain Chat NextJS](https://github.com/zahidkhawaja/langchain-chat-nextjs) - for the frontend.
+- [Chat Langchainjs](https://github.com/sullivan-sean/chat-langchainjs) - Backend and Data ingestion
 
 ## **How To Run on Your Example**
 
