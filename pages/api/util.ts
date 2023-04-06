@@ -1,10 +1,11 @@
 import { OpenAIChat, BaseLLM } from "langchain/llms";
 import { Document } from "langchain/document";
-import { LLMChain, VectorDBQAChain, StuffDocumentsChain } from "langchain/chains";
+import { LLMChain, VectorDBQAChain, ChatVectorDBQAChain, loadQAChain } from "langchain/chains";
 import { HNSWLib } from "langchain/vectorstores";
 import { PromptTemplate } from "langchain/prompts";
 import { LLMChainInput } from "langchain/dist/chains/llm_chain";
 import { ChainValues } from "langchain/schema";
+import { CallbackManager } from "langchain/callbacks";
 
 const SYSTEM_MESSAGE = PromptTemplate.fromTemplate(
   `You are an AI assistant for the FHA Home Loans. Anything you are not able to answer refer the user to Hometown Lenders, Inc.
@@ -20,11 +21,7 @@ Give the user the name Hometown Lenders, Inc. so they can get ask specific quest
 
 const QA_PROMPT = PromptTemplate.fromTemplate(`{question}`);
 
-// VectorDBQAChain is a chain that uses a vector store to find the most similar document to the question
-// and then uses a documents chain to combine all the documents into a single string
-// and then uses a LLMChain to generate the answer
-// Before: Based on the chat history make singular question -> find related docs from the question -> combine docs and insert them as context -> generate answer
-// After: Find related docs from the question -> combine docs and insert them into predefined system message -> pass in the chat history -> generate answer
+
 
 export class OpenAIChatLLMChain extends LLMChain implements LLMChainInput {
   async _call(values: ChainValues): Promise<ChainValues> {
@@ -100,30 +97,42 @@ interface qaParams {
 }
 
 // use this custom qa chain instead of the default one
-const loadQAChain = (llm: BaseLLM, params: qaParams = {}) => {
-  const { prompt = QA_PROMPT } = params;
-  const llmChain = new OpenAIChatLLMChain({ prompt, llm });
-  const chain = new ChatStuffDocumentsChain({ llmChain });
-  return chain;
-}
+//const loadQAChain = (llm: BaseLLM, params: qaParams = {}) => {
+//  const { prompt = QA_PROMPT } = params;
+//  const llmChain = new OpenAIChatLLMChain({ prompt, llm });
+//  const chain = new ChatStuffDocumentsChain({ llmChain });
+//  return chain;
+//}
 
 
 export const makeChain = (vectorstore: HNSWLib, onTokenStream?: (token: string) => void) => {
+  
+  const questionGenerator = new LLMChain({
+    llm: new OpenAIChat({ temprature: 0, modelName: 'gpt-3.5-turbo' }),
+    prompt: QA_PROMPT,
+  });
+  
   const docChain = loadQAChain(
     new OpenAIChat({
       temperature: 0,
-      // modelName: 'gpt-4',
+      modelName: 'gpt-3.5-turbo', //change this to older versions (e.g. gpt-3.5-turbo) if you don't have access to gpt-4
       streaming: Boolean(onTokenStream),
-      callbackManager: {
-        handleNewToken: onTokenStream,
-      }
+      callbackManager: onTokenStream
+        ? CallbackManager.fromHandlers({
+            async handleLLMNewToken(token) {
+              onTokenStream(token);
+              // console.log(token);
+            },
+          })
+        : undefined,
     }),
     { prompt: QA_PROMPT },
   );
 
-  return new OpenAIChatVectorDBQAChain({
+  return new ChatVectorDBQAChain({
     vectorstore,
     combineDocumentsChain: docChain,
+    questionGeneratorChain: questionGenerator,
     inputKey: 'question',
   });
 }
