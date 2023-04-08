@@ -1,9 +1,11 @@
 import { OpenAIChat, BaseLLM } from "langchain/llms";
 import { Document } from "langchain/document";
-import { LLMChain, VectorDBQAChain, ChainValues, StuffDocumentsChain } from "langchain/chains";
+import { LLMChain, VectorDBQAChain, StuffDocumentsChain } from "langchain/chains";
 import { HNSWLib } from "langchain/vectorstores";
 import { PromptTemplate } from "langchain/prompts";
 import { LLMChainInput } from "langchain/dist/chains/llm_chain";
+import { CallbackManager } from "langchain/callbacks";
+import { ChainValues } from "langchain/schema";
 
 const SYSTEM_MESSAGE = PromptTemplate.fromTemplate(
   `You are an AI assistant that knows about sports from Alabama High School Athletic Association and AHSAA.  AHSAA stands for Alabama High School Atheltic Association.  AHSAA covers 6th - 12th grade sports for Public and Private schools in Alabama. Anything you are not able to answer say I do not know.
@@ -65,7 +67,7 @@ export class OpenAIChatLLMChain extends LLMChain implements LLMChainInput {
       },
       {
         role: "assistant",
-        content: "Hi, I'm an AI assistant for FHA Loans. How can I help you?"
+        content: "Hi, I'm an AI assistant for Alabama High School Sports. How can I help you?"
       },
       ...prefixMessages];
     const formattedString = await this.prompt.format(values);
@@ -124,11 +126,16 @@ export const makeChain = (vectorstore: HNSWLib, onTokenStream?: (token: string) 
       temperature: 0,
       // modelName: 'gpt-4',
       streaming: Boolean(onTokenStream),
-      callbackManager: {
-        handleNewToken: onTokenStream,
-      }
+      callbackManager: onTokenStream
+        ? CallbackManager.fromHandlers({
+            async handleLLMNewToken(token) {
+              onTokenStream(token);
+              // console.log(token);
+            },
+          })
+        : undefined,
     }),
-    { prompt: QA_PROMPT },
+    { prompt: QA_PROMPT }
   );
 
   return new OpenAIChatVectorDBQAChain({
