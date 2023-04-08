@@ -1,6 +1,6 @@
 {
-  "name": "ahsaa-chatbot",
-  "version": "0.0.1",
+  "name": "chat-your-data",
+  "version": "0.0.4",
   "private": true,
   "type": "module",
   "scripts": {
@@ -20,11 +20,11 @@
     "dotenv": "^16.0.3",
     "eslint": "8.34.0",
     "eslint-config-next": "^13.2.4",
-    "hnswlib-node": "^1.2.0",
-    "langchain": "^0.0.51",
+    "hnswlib-node": "^1.4.2",
+    "langchain": "0.0.22",
     "next": "^13.2.4",
     "openai": "^3.2.1",
-    "pdfjs-dist": "^3.5.141",
+    "pdfjs-dist": "^3.4.120",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.5",

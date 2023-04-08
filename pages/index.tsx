@@ -13,13 +13,13 @@ type Message = {
   message: string;
   isStreaming?: boolean;
 }
-//
+
 export default function Home() {
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [messageState, setMessageState] = useState<{ messages: Message[], pending?: string, history: [string, string][] }>({
     messages: [{
-      "message": "Hi, I'm an AI assistant for you. How can I help you?",
+      "message": "Hi, I'm an AI assistant for Your Data. How can I help you?",
       "type": "apiMessage"
     }],
     history: []
@@ -118,9 +118,12 @@ export default function Home() {
     <>
       <Head>
         {/* <!-- Primary Meta Tags --> */}
-        <title>Chatbot</title>
-        <meta name="title" content="Chatbot" />
-        <meta name="description" content="Chatbot" />
+        <title>Chat Your Data</title>
+        <meta name="title" content="Chat Your Data" />
+        <meta
+          name="description"
+          content="Using AI to ask questions of your data"
+        />
 
         {/* <!-- Open Graph / Facebook --> */}
 
@@ -132,12 +135,16 @@ export default function Home() {
       <div className={styles.topnav}>
         <div>
           <Link href="/">
-            <h1 className={styles.navlogo}>AHSAA: Chatbot</h1>
+            <h1 className={styles.navlogo}>Chat your Data</h1>
           </Link>
         </div>
         <div className={styles.navlinks}>
-          <a href="https://www.ahsaa.com/" target="_blank" rel="noreferrer">
-            AHSAA
+          <a
+            href="https://github.com/hillis/chat-your-data"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
           </a>
         </div>
       </div>
