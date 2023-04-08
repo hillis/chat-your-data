@@ -38,6 +38,8 @@ const QA_PROMPT = PromptTemplate.fromTemplate(`{question}`);
 // Before: Based on the chat history make singular question -> find related docs from the question -> combine docs and insert them as context -> generate answer
 // After: Find related docs from the question -> combine docs and insert them into predefined system message -> pass in the chat history -> generate answer
 
+
+//Exporting OpenAIChatLLMChain to be used in the custom qa chain
 export class OpenAIChatLLMChain extends LLMChain implements LLMChainInput {
   async _call(values: ChainValues): Promise<ChainValues> {
     let stop;
@@ -77,6 +79,8 @@ export class OpenAIChatLLMChain extends LLMChain implements LLMChainInput {
   }
 }
 
+
+//Class to pass in the chat history to the LLMChain
 class ChatStuffDocumentsChain extends StuffDocumentsChain {
   async _call(values: ChainValues): Promise<ChainValues> {
     if (!(this.inputKey in values)) {
