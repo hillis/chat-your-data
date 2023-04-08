@@ -39,5 +39,4 @@ yarn-error.log*
 next-env.d.ts
 
 docs/
-
-
+playwright-report/
