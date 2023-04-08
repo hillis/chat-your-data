@@ -1,14 +1,14 @@
-# **Chat your Data**
+# **Hometown Chatbot**
 
-Chat your Data is an application built using Next.js, React, and OpenAI. This project allows users to communicate with an AI-based chatbot that provides relevant answers to users' queries. The application uses natural language processing (NLP) technology to understand users' queries and provide accurate responses.
+Hometown Chatbot is a chatbot application built using Next.js, React, and OpenAI. This project allows users to communicate with an AI-based chatbot that provides relevant answers to users' queries. The application uses natural language processing (NLP) technology to understand users' queries and provide accurate responses.
 
 ## **Installation**
 
-Before installing Chat your Data, ensure that Node.js is installed on your system. After installing Node.js, follow the steps below to install the application:
+Before installing Hometown Chatbot, ensure that Node.js is installed on your system. After installing Node.js, follow the steps below to install the application:
 
 1. Clone the project repository from GitHub.
 2. Navigate to the project directory using a terminal or command prompt.
-3. Run **`yarn install`** to install the project dependencies.
+3. Run **`npm install`** to install the project dependencies.
 4. Create a **`.env`** file in the project root directory and configure the environment variables as required.
 
 
@@ -17,11 +17,6 @@ First, create a new `.env` file from `.env.example` and add your OpenAI API key 
 ```bash
 cp .env.example .env
 ```
-
-## **Known Issues**
-
-Need to keep LangChain version 0.0.22.  Anything higher has refactored code and breaks.  Working on Refactoring for ChatModel
-
 ### **Data Ingestion**
 
 Data ingestion happens in two steps.
@@ -44,7 +39,7 @@ make sure to run this before moving on to the next step.
 
 ## **Usage**
 
-To start the Chat your Data application, run the following command in the terminal:
+To start the Hometown Chatbot application, run the following command in the terminal:
 
 ```
 
@@ -99,7 +94,7 @@ The following devDependencies are required for development purposes:
 
 ## **Contributing**
 
-Contributions to Chat your Data are welcome. If you find any bugs or issues, please raise them on the project's GitHub repository. You can also contribute to the project by submitting pull requests.
+Contributions to Hometown Chatbot are welcome. If you find any bugs or issues, please raise them on the project's GitHub repository. You can also contribute to the project by submitting pull requests.
 
 ## **License**
 
@@ -115,7 +110,6 @@ This repo borrows heavily from
 
 - [ChatLangChain](https://github.com/hwchase17/chat-langchain) - for the backend and data ingestion logic
 - [LangChain Chat NextJS](https://github.com/zahidkhawaja/langchain-chat-nextjs) - for the frontend.
-- [Chat Langchainjs](https://github.com/sullivan-sean/chat-langchainjs) - Backend and Data ingestion
 
 ## **How To Run on Your Example**
 
