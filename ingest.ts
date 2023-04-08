@@ -1,12 +1,16 @@
 import { HNSWLib } from "langchain/vectorstores";
 import { OpenAIEmbeddings } from "langchain/embeddings";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
-import { TextLoader } from "langchain/document_loaders";
+import { TextLoader, DirectoryLoader, PDFLoader } from "langchain/document_loaders";
 
-const FILENAME = "limits2023.md";
+const FILENAME = "./data/limits2023.md";
+
 
 export const run = async () => {
-  const loader = new TextLoader(FILENAME);
+  const loader = new DirectoryLoader("docs/sportsdata", {
+    ".md": (path) => new TextLoader(path),
+    ".pdf": (path) => new PDFLoader(path),
+  });
   const rawDocs = await loader.load();
   console.log("Loader created.");
   /* Split the text into chunks */
