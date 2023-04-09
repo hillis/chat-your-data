@@ -1,4 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+/* // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { Server as HttpServer } from "http";
 import type { Server as HttpsServer } from "https";
@@ -66,3 +66,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   res.end();
 }
+ */
