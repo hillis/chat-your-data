@@ -1,12 +1,41 @@
 import { OpenAIChat, BaseLLM } from "langchain/llms";
 import { Document } from "langchain/document";
-import { LLMChain, VectorDBQAChain, StuffDocumentsChain } from "langchain/chains";
+import { LLMChain, VectorDBQAChain, StuffDocumentsChain, loadQAChain, ChatVectorDBQAChain } from "langchain/chains";
 import { HNSWLib } from "langchain/vectorstores";
-import { PromptTemplate } from "langchain/prompts";
+import { ChatPromptTemplate, HumanMessagePromptTemplate, PromptTemplate, SystemMessagePromptTemplate } from "langchain/prompts";
 import { LLMChainInput } from "langchain/dist/chains/llm_chain";
 import { CallbackManager } from "langchain/callbacks";
 import { ChainValues } from "langchain/schema";
+import { ChatOpenAI } from "langchain/chat_models";
+import { HumanChatMessage } from "langchain/schema";
 
+
+
+//PromptTemplate is a template that can be used to generate a prompt
+
+const QA_PROMPT = PromptTemplate.fromTemplate(`{question}`);
+
+const CONDENSE_PROMPT =
+  PromptTemplate.fromTemplate(`Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question.
+
+Chat History:
+{chat_history}
+Follow Up Input: {question}
+Standalone question:`);
+
+const CHAT_PROMPT = ChatPromptTemplate.fromPromptMessages([
+  SystemMessagePromptTemplate.fromTemplate(
+  `You are an AI assistant that knows about sports from Alabama High School Athletic Association and AHSAA.  AHSAA stands for Alabama High School Atheltic Association.  AHSAA covers 6th - 12th grade sports for Public and Private schools in Alabama. Anything you are not able to answer say I do not know.
+You are given the following data from each School sport from the AHSAA.  The data has the Rules, Procedures and team Polices.  The context is between two '========='. Provide conversational answers in Markdown syntax with links formatted as hyperlinks.
+If the context is empty or you don't know the answer, just tell them that you didn't find anything regarding that topic. Don't try to make up an answer.  
+If the question is not about AHSAA sports, rules or team Polices, politely inform them that you are tuned to only answer questions about the AHSAA Sports content.   
+=========
+{context}
+=========` ),
+  HumanMessagePromptTemplate.fromTemplate("{question}"),
+]);
+
+/* 
 const SYSTEM_MESSAGE = PromptTemplate.fromTemplate(
   `You are an AI assistant that knows about sports from Alabama High School Athletic Association and AHSAA.  AHSAA stands for Alabama High School Atheltic Association.  AHSAA covers 6th - 12th grade sports for Public and Private schools in Alabama. Anything you are not able to answer say I do not know.
 You are given the following data from each School sport from the AHSAA.  The data has the Rules, Procedures and team Polices.  The context is between two '========='. Provide conversational answers in Markdown syntax with links formatted as hyperlinks.
@@ -15,7 +44,7 @@ If the question is not about AHSAA sports, rules or team Polices, politely infor
 =========
 {context}
 =========`
-);
+); */
   //
 //  Saved Version for FHA Loan Data
 //(
@@ -30,7 +59,7 @@ If the question is not about AHSAA sports, rules or team Polices, politely infor
 //=========`
 //);
 
-const QA_PROMPT = PromptTemplate.fromTemplate(`{question}`);
+
 
 // VectorDBQAChain is a chain that uses a vector store to find the most similar document to the question
 // and then uses a documents chain to combine all the documents into a single string
@@ -39,7 +68,7 @@ const QA_PROMPT = PromptTemplate.fromTemplate(`{question}`);
 // After: Find related docs from the question -> combine docs and insert them into predefined system message -> pass in the chat history -> generate answer
 
 
-//Exporting OpenAIChatLLMChain to be used in the custom qa chain
+/* //Exporting OpenAIChatLLMChain to be used in the custom qa chain
 export class OpenAIChatLLMChain extends LLMChain implements LLMChainInput {
   async _call(values: ChainValues): Promise<ChainValues> {
     let stop;
@@ -104,6 +133,7 @@ class OpenAIChatVectorDBQAChain extends VectorDBQAChain {
     }
     const question: string = values[this.inputKey];
     const docs = await this.vectorstore.similaritySearch(question, this.k);
+    
     // all of this just to pass chat history to the LLMChain
     const inputs = { question, input_documents: docs, chat_history: values.chat_history };
     const result = await this.combineDocumentsChain.call(inputs);
@@ -122,13 +152,23 @@ const loadQAChain = (llm: BaseLLM, params: qaParams = {}) => {
   const chain = new ChatStuffDocumentsChain({ llmChain });
   return chain;
 }
+ */
 
+export const makeChain = (
+  vectorstore: HNSWLib,
+  onTokenStream?: (token: string) => void
+) => {
 
-export const makeChain = (vectorstore: HNSWLib, onTokenStream?: (token: string) => void) => {
+  const questionGenerator = new LLMChain({
+    llm: new OpenAIChat({ temperature: 0 }),
+    prompt: CONDENSE_PROMPT,
+  });
+  
   const docChain = loadQAChain(
     new OpenAIChat({
       temperature: 0,
-      // modelName: 'gpt-4',
+      // maxTokens: 100,
+      // modelName: 'gpt-4',  //Comment out ModelName to use the default model GPT-3.5-Turbo
       streaming: Boolean(onTokenStream),
       callbackManager: onTokenStream
         ? CallbackManager.fromHandlers({
@@ -139,12 +179,15 @@ export const makeChain = (vectorstore: HNSWLib, onTokenStream?: (token: string) 
           })
         : undefined,
     }),
-    { prompt: QA_PROMPT }
+    { prompt: CHAT_PROMPT }
   );
 
-  return new OpenAIChatVectorDBQAChain({
+  return new ChatVectorDBQAChain({
     vectorstore,
     combineDocumentsChain: docChain,
-    inputKey: 'question',
+    questionGeneratorChain: questionGenerator,
+    returnSourceDocuments: true,
+    k: 1, // number of source documents to return
+    
   });
 }
