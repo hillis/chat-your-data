@@ -9,8 +9,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const body = req.body;
+  const {question, history} = req.body;
   const dir = path.resolve(process.cwd(), "data");
+
+  // OpenAI recommends replacing newlines with spaces for best results
+  const sanitizedQuestion = question.trim().replaceAll("\n", " ");
 
   const vectorstore = await HNSWLib.load(dir, new OpenAIEmbeddings());
   res.writeHead(200, {
@@ -27,15 +30,19 @@ export default async function handler(
   };
 
   sendData(JSON.stringify({ data: "" }));
+
+  //Create Chain
   const chain = makeChain(vectorstore, (token: string) => {
     sendData(JSON.stringify({ data: token }));
   });
 
   try {
-    await chain.call({
-      question: body.question,
-      chat_history: body.history,
+    //Ask Question
+    const response = await chain.call({
+      question: sanitizedQuestion,
+      chat_history: history || [],
     });
+    sendData(JSON.stringify({ sourceDocs: response.sourceDocuments }));
   } catch (err) {
     console.error(err);
     // Ignore error
