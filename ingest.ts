@@ -9,6 +9,8 @@ import { CustomPDFLoader } from "scripts/customPDFLoader";
 const FILENAME = "./data/limits2023.md";
 const filePath = 'docs';
 
+
+
 export const run = async () => {
   try {
     /*load raw docs from the all files in the directory */
@@ -25,6 +27,23 @@ export const run = async () => {
       chunkSize: 1000,
       chunkOverlap: 200,
     });
+
+    async function initPinecone() {
+      try {
+        const pinecone = new PineconeClient();
+
+        await pinecone.init({
+          environment: process.env.PINECONE_ENVIRONMENT ?? "", //this is in the dashboard
+          apiKey: process.env.PINECONE_API_KEY ?? "",
+        });
+
+        return pinecone;
+      } catch (error) {
+        console.log("error", error);
+        throw new Error("Failed to initialize Pinecone Client");
+      }
+    }
+    const pinecone = await initPinecone();
 
     const docs = await textSplitter.splitDocuments(rawDocs);
     console.log('split docs', docs);
