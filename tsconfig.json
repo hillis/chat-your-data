@@ -32,5 +32,5 @@
     "node_modules/index.tsx",
     ],
   "exclude": ["node_modules"],
-  "typeRoots": ["./node_modules/@types", "./node_modules/@types"]
+  "typeRoots": ["./types", "./node_modules/@types"]
 }
