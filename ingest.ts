@@ -1,5 +1,5 @@
-import { HNSWLib, PineconeStore } from "langchain/vectorstores";
-import { pinecone } from '@/utils/pinecone-client';
+import { PineconeStore } from "langchain/vectorstores";
+import { PineconeClient } from "@pinecone-database/pinecone";
 import { PINECONE_INDEX_NAME, PINECONE_NAME_SPACE } from "@/config/pinecone";
 import { OpenAIEmbeddings } from "langchain/embeddings";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
