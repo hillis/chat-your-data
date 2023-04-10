@@ -1,7 +1,7 @@
 import { OpenAIChat, BaseLLM } from "langchain/llms";
 import { Document } from "langchain/document";
 import { LLMChain, VectorDBQAChain, StuffDocumentsChain, loadQAChain, ChatVectorDBQAChain } from "langchain/chains";
-import { HNSWLib } from "langchain/vectorstores";
+import { HNSWLib, PineconeStore } from "langchain/vectorstores";
 import { ChatPromptTemplate, HumanMessagePromptTemplate, PromptTemplate, SystemMessagePromptTemplate } from "langchain/prompts";
 import { LLMChainInput } from "langchain/dist/chains/llm_chain";
 import { CallbackManager } from "langchain/callbacks";
@@ -32,7 +32,7 @@ If the question is not about AHSAA sports, rules or team Polices, politely infor
 =========
 {context}
 =========` ),
-  HumanMessagePromptTemplate.fromTemplate("{question}"),
+  HumanMessagePromptTemplate.fromTemplate("{question}, hi"),
 ]);
 
 /* 
@@ -155,7 +155,7 @@ const loadQAChain = (llm: BaseLLM, params: qaParams = {}) => {
  */
 
 export const makeChain = (
-  vectorstore: HNSWLib,
+  vectorstore: PineconeStore,
   onTokenStream?: (token: string) => void
 ) => {
 

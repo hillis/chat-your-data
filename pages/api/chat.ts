@@ -1,7 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import path from "path";
-import { HNSWLib } from "langchain/vectorstores";
+import { HNSWLib, PineconeStore } from "langchain/vectorstores";
+import { pinecone } from "@/utils/pinecone-client";
+import { PINECONE_INDEX_NAME, PINECONE_NAME_SPACE } from "@/config/pinecone";
 import { OpenAIEmbeddings } from "langchain/embeddings";
 import { makeChain } from "./util";
 
@@ -15,7 +17,16 @@ export default async function handler(
   // OpenAI recommends replacing newlines with spaces for best results
   const sanitizedQuestion = question.trim().replaceAll("\n", " ");
 
-  const vectorstore = await HNSWLib.load(dir, new OpenAIEmbeddings());
+  const index = pinecone.Index(PINECONE_INDEX_NAME);
+
+  const vectorStore = await PineconeStore.fromExistingIndex(
+    new OpenAIEmbeddings({}),
+    {
+      pineconeIndex: index,
+      textKey: "text",
+      namespace: PINECONE_NAME_SPACE,
+    }
+  );
   res.writeHead(200, {
     "Content-Type": "text/event-stream",
     // Important to set no-transform to avoid compression, which will delay
@@ -32,7 +43,7 @@ export default async function handler(
   sendData(JSON.stringify({ data: "" }));
 
   //Create Chain
-  const chain = makeChain(vectorstore, (token: string) => {
+  const chain = makeChain(vectorStore, (token: string) => {
     sendData(JSON.stringify({ data: token }));
   });
 
@@ -43,8 +54,8 @@ export default async function handler(
       chat_history: history || [],
     });
     sendData(JSON.stringify({ sourceDocs: response.sourceDocuments }));
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error("error", error);
     // Ignore error
   } finally {
     sendData("[DONE]");
