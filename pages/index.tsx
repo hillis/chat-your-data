@@ -19,7 +19,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [messageState, setMessageState] = useState<{ messages: Message[], pending?: string, history: [string, string][] }>({
     messages: [{
-      "message": "Hi, I'm an AI assistant for you. How can I help you?",
+      "message": "Hi, I'm an AI assistant for Your Data. How can I help you?",
       "type": "apiMessage"
     }],
     history: []
@@ -118,9 +118,12 @@ export default function Home() {
     <>
       <Head>
         {/* <!-- Primary Meta Tags --> */}
-        <title>Chatbot</title>
-        <meta name="title" content="Chatbot" />
-        <meta name="description" content="Chatbot" />
+        <title>Chat Your Data</title>
+        <meta name="title" content="Chat Your Data" />
+        <meta
+          name="description"
+          content="Using AI to ask questions of your data"
+        />
 
         {/* <!-- Open Graph / Facebook --> */}
 
@@ -132,12 +135,16 @@ export default function Home() {
       <div className={styles.topnav}>
         <div>
           <Link href="/">
-            <h1 className={styles.navlogo}>AHSAA: Chatbot</h1>
+            <h1 className={styles.navlogo}>Chat your Data</h1>
           </Link>
         </div>
         <div className={styles.navlinks}>
-          <a href="https://www.ahsaa.com/" target="_blank" rel="noreferrer">
-            AHSAA
+          <a
+            href="https://github.com/hillis/chat-your-data"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
           </a>
         </div>
       </div>
@@ -149,6 +156,16 @@ export default function Home() {
               let className;
 
               if (message.type === "apiMessage") {
+                icon = (
+                  <Image
+                    src="/chatIcon.png"
+                    alt="AI"
+                    width="30"
+                    height="30"
+                    className={styles.boticon}
+                    priority
+                  />
+                );
                 icon = (
                   <Image
                     src="/chatIcon.png"
@@ -171,14 +188,40 @@ export default function Home() {
                     priority
                   />
                 );
+                icon = (
+                  <Image
+                    src="/usericon.png"
+                    alt="Me"
+                    width="30"
+                    height="30"
+                    className={styles.usericon}
+                    priority
+                  />
+                );
 
                 // The latest message sent by the user will be animated while waiting for a response
                 className =
                   loading && index === chatMessages.length - 1
                     ? styles.usermessagewaiting
                     : styles.usermessage;
+                className =
+                  loading && index === chatMessages.length - 1
+                    ? styles.usermessagewaiting
+                    : styles.usermessage;
               }
               return (
+                <div key={index} className={className}>
+                  {icon}
+                  <div className={styles.markdownanswer}>
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      linkTarget="_blank"
+                    >
+                      {message.message}
+                    </ReactMarkdown>
+                  </div>
+                </div>
+              );
                 <div key={index} className={className}>
                   {icon}
                   <div className={styles.markdownanswer}>
@@ -198,6 +241,7 @@ export default function Home() {
           <div className={styles.cloudform}>
             <form onSubmit={handleSubmit}>
               <textarea
+              <textarea
                 disabled={loading}
                 onKeyDown={handleEnter}
                 ref={textAreaRef}
@@ -211,8 +255,19 @@ export default function Home() {
                 }
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value)}
+                id="userInput"
+                name="userInput"
+                placeholder={
+                  loading ? "Waiting for response..." : "Type your question..."
+                }
+                value={userInput}
+                onChange={(e) => setUserInput(e.target.value)}
                 className={styles.textarea}
               />
+              <button
+                type="submit"
+                disabled={loading}
+                className={styles.generatebutton}
               <button
                 type="submit"
                 disabled={loading}
@@ -221,9 +276,16 @@ export default function Home() {
                 {loading ? (
                   <div className={styles.loadingwheel}>
                     <CircularProgress color="inherit" size={20} />
+                    <CircularProgress color="inherit" size={20} />
                   </div>
                 ) : (
                   // Send icon SVG in input field
+                  <svg
+                    viewBox="0 0 20 20"
+                    className={styles.svgicon}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
                   <svg
                     viewBox="0 0 20 20"
                     className={styles.svgicon}
@@ -236,10 +298,12 @@ export default function Home() {
             </form>
           </div>
           <div className={styles.footer}>
+          <div className={styles.footer}>
             <p> </p>
           </div>
         </div>
       </main>
     </>
+  );
   );
 }
