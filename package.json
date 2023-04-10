@@ -23,7 +23,7 @@
     "eslint": "8.38.0",
     "eslint-config-next": "^13.3.0",
     "hnswlib-node": "^1.4.2",
-    "langchain": "^0.0.51",
+    "langchain": "^0.0.52-0",
     "next": "^13.3.0",
     "openai": "^3.2.1",
     "pdf-parse": "^1.1.1",
@@ -33,6 +33,7 @@
     "react-markdown": "^8.0.5",
     "remark-gfm": "^3.0.1",
     "sharp": "^0.32.0",
+    "tiktoken": "^0.0.1",
     "ws": "^8.13.0"
   },
   "devDependencies": {
