@@ -24,7 +24,7 @@ export default function Home() {
   }>({
     messages: [
       {
-        message: "Hi, I'm an AI assistant for you. How can I help you?",
+        message: "Hi, I'm an AI assistant with knowledge of your data. How can I help you?",
         type: "apiMessage",
       },
     ],
@@ -147,12 +147,16 @@ export default function Home() {
       <div className={styles.topnav}>
         <div>
           <Link href="/">
-            <h1 className={styles.navlogo}>AHSAA: Chatbot</h1>
+            <h1 className={styles.navlogo}>Chat your Data</h1>
           </Link>
         </div>
         <div className={styles.navlinks}>
-          <a href="https://www.ahsaa.com/" target="_blank" rel="noreferrer">
-            AHSAA
+          <a
+            href="https://github.com/hillis/chat-your-data"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Chat your Data
           </a>
         </div>
       </div>
