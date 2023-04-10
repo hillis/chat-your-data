@@ -1,8 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import path from "path";
-import { HNSWLib, PineconeStore } from "langchain/vectorstores";
-import { pinecone } from "@/utils/pinecone-client";
+import { PineconeStore } from "langchain/vectorstores";
+import { PineconeClient } from "@pinecone-database/pinecone";
 import { PINECONE_INDEX_NAME, PINECONE_NAME_SPACE } from "@/config/pinecone";
 import { OpenAIEmbeddings } from "langchain/embeddings";
 import { makeChain } from "./util";
@@ -17,7 +17,26 @@ export default async function handler(
   // OpenAI recommends replacing newlines with spaces for best results
   const sanitizedQuestion = question.trim().replaceAll("\n", " ");
 
+  async function initPinecone() {
+    try {
+      const pinecone = new PineconeClient();
+
+      await pinecone.init({
+        environment: process.env.PINECONE_ENVIRONMENT ?? "", //this is in the dashboard
+        apiKey: process.env.PINECONE_API_KEY ?? "",
+      });
+
+      return pinecone;
+    } catch (error) {
+      console.log("error", error);
+      throw new Error("Failed to initialize Pinecone Client");
+    }
+  }
+  const pinecone = await initPinecone();
+
+
   const index = pinecone.Index(PINECONE_INDEX_NAME);
+  
 
   const vectorStore = await PineconeStore.fromExistingIndex(
     new OpenAIEmbeddings({}),

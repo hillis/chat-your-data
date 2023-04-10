@@ -168,7 +168,7 @@ export const makeChain = (
     new OpenAIChat({
       temperature: 0,
       // maxTokens: 100,
-      // modelName: 'gpt-4',  //Comment out ModelName to use the default model GPT-3.5-Turbo
+      modelName: 'gpt-4',  //Comment out ModelName to use the default model GPT-3.5-Turbo
       streaming: Boolean(onTokenStream),
       callbackManager: onTokenStream
         ? CallbackManager.fromHandlers({
@@ -186,8 +186,8 @@ export const makeChain = (
     vectorstore,
     combineDocumentsChain: docChain,
     questionGeneratorChain: questionGenerator,
-    returnSourceDocuments: true,
-    k: 1, // number of source documents to return
+    //returnSourceDocuments: true,
+    //k: 1, // number of source documents to return
     
   });
 }
