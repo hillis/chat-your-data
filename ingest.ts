@@ -1,21 +1,24 @@
-import { PineconeStore } from "langchain/vectorstores";
-import { PineconeClient } from "@pinecone-database/pinecone";
+import { PineconeStore } from "langchain/vectorstores/pinecone";
+//import { PineconeClient } from "@pinecone-database/pinecone";
+import { pinecone } from "@/utils/pinecone-client";
 import { PINECONE_INDEX_NAME, PINECONE_NAME_SPACE } from "@/config/pinecone";
-import { OpenAIEmbeddings } from "langchain/embeddings";
+import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
-import { TextLoader, DirectoryLoader } from "langchain/document_loaders";
-import { CustomPDFLoader } from "scripts/customPDFLoader";
+import { DirectoryLoader } from "langchain/document_loaders/fs/directory";
+import { TextLoader } from "langchain/document_loaders/fs/text";
+import { PDFLoader } from "langchain/document_loaders/fs/pdf";
+//import { CustomPDFLoader } from "scripts/customPDFLoader";
 
 const FILENAME = "./data/limits2023.md";
-const filePath = 'docs';
+const filePath = 'docs/pdf';
 
-
+  
 
 export const run = async () => {
   try {
     /*load raw docs from the all files in the directory */
     const directoryLoader = new DirectoryLoader(filePath, {
-      ".pdf": (path) => new CustomPDFLoader(path),
+      ".pdf": (path) => new PDFLoader(path, { pdfjs: () => import('pdfjs-dist/legacy/build/pdf.js').then((mod) => mod.default)}),
       ".md": (path) => new TextLoader(path),
     });
 
@@ -28,30 +31,17 @@ export const run = async () => {
       chunkOverlap: 200,
     });
 
-    async function initPinecone() {
-      try {
-        const pinecone = new PineconeClient();
-
-        await pinecone.init({
-          environment: process.env.PINECONE_ENVIRONMENT ?? "", //this is in the dashboard
-          apiKey: process.env.PINECONE_API_KEY ?? "",
-        });
-
-        return pinecone;
-      } catch (error) {
-        console.log("error", error);
-        throw new Error("Failed to initialize Pinecone Client");
-      }
-    }
-    const pinecone = await initPinecone();
+ 
 
     const docs = await textSplitter.splitDocuments(rawDocs);
-    console.log('split docs', docs);
+    // console.log('split docs', docs);
 
     console.log('creating vector store...');
+
+
     /*create and store the embeddings in the vectorStore*/
     const embeddings = new OpenAIEmbeddings();
-    const index = pinecone.Index(PINECONE_INDEX_NAME); //change to your own index name
+    const index = pinecone.Index(PINECONE_INDEX_NAME); 
 
     //embed the PDF documents
     await PineconeStore.fromDocuments(docs, embeddings, {

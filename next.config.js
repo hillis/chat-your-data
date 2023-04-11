@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   webpack(config) {
     config.experiments = {
       asyncWebAssembly: true,
@@ -9,3 +10,4 @@ const nextConfig = {
     return config;
   },
 };
+module.exports = nextConfig;

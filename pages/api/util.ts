@@ -1,13 +1,9 @@
-import { OpenAIChat, BaseLLM } from "langchain/llms";
-import { Document } from "langchain/document";
-import { LLMChain, VectorDBQAChain, StuffDocumentsChain, loadQAChain, ChatVectorDBQAChain } from "langchain/chains";
-import { HNSWLib, PineconeStore } from "langchain/vectorstores";
+import { OpenAIChat} from "langchain/llms/openai";
+import { LLMChain, loadQAChain, ChatVectorDBQAChain } from "langchain/chains";
+import { PineconeStore } from "langchain/vectorstores/pinecone";
 import { ChatPromptTemplate, HumanMessagePromptTemplate, PromptTemplate, SystemMessagePromptTemplate } from "langchain/prompts";
-import { LLMChainInput } from "langchain/dist/chains/llm_chain";
 import { CallbackManager } from "langchain/callbacks";
-import { ChainValues } from "langchain/schema";
-import { ChatOpenAI } from "langchain/chat_models";
-import { HumanChatMessage } from "langchain/schema";
+
 
 
 
@@ -25,14 +21,13 @@ Standalone question:`);
 
 const CHAT_PROMPT = ChatPromptTemplate.fromPromptMessages([
   SystemMessagePromptTemplate.fromTemplate(
-  `You are an AI assistant that knows about sports from Alabama High School Athletic Association and AHSAA.  AHSAA stands for Alabama High School Atheltic Association.  AHSAA covers 6th - 12th grade sports for Public and Private schools in Alabama. Anything you are not able to answer say I do not know.
+  `You are an AI assistant that knows about sports from Alabama High School Athletic Association and AHSAA.  AHSAA stands for Alabama High School Atheltic Association.  AHSAA covers 6th - 12th grade sports for Public and Private schools in Alabama. 
 You are given the following data from each School sport from the AHSAA.  The data has the Rules, Procedures and team Polices.  The context is between two '========='. Provide conversational answers in Markdown syntax with links formatted as hyperlinks.
-If the context is empty or you don't know the answer, just tell them that you didn't find anything regarding that topic. Don't try to make up an answer.  
-If the question is not about AHSAA sports, rules or team Polices, politely inform them that you are tuned to only answer questions about the AHSAA Sports content.   
+You can also answer questions about any data found in the index.   
 =========
 {context}
 =========` ),
-  HumanMessagePromptTemplate.fromTemplate("{question}, hi"),
+  HumanMessagePromptTemplate.fromTemplate("{question}"),
 ]);
 
 /* 
@@ -168,7 +163,7 @@ export const makeChain = (
     new OpenAIChat({
       temperature: 0,
       // maxTokens: 100,
-      modelName: 'gpt-4',  //Comment out ModelName to use the default model GPT-3.5-Turbo
+      // modelName: 'gpt-4',  //Comment out ModelName to use the default model GPT-3.5-Turbo
       streaming: Boolean(onTokenStream),
       callbackManager: onTokenStream
         ? CallbackManager.fromHandlers({
