@@ -15,9 +15,6 @@ export default async function handler(
   const vectorstore = await HNSWLib.load(dir, new OpenAIEmbeddings());
   res.writeHead(200, {
     "Content-Type": "text/event-stream",
-    // Important to set no-transform to avoid compression, which will delay
-    // writing response chunks to the client.
-    // See https://github.com/vercel/next.js/issues/9965
     "Cache-Control": "no-cache, no-transform",
     Connection: "keep-alive",
   });

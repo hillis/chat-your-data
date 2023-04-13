@@ -1,10 +1,11 @@
-import { OpenAIChat, BaseLLM } from "langchain/llms";
+import { OpenAIChat } from "langchain/llms/openai";
+//import { ChatOpenAI } from "langchain/chat_models/openai";
 import { Document } from "langchain/document";
-import { LLMChain, VectorDBQAChain, ChatVectorDBQAChain, loadQAChain } from "langchain/chains";
-import { HNSWLib } from "langchain/vectorstores";
+import { LLMChain, VectorDBQAChain, ChatVectorDBQAChain, loadQAChain, BaseChain, StuffDocumentsChain } from "langchain/chains";
+import { HNSWLib } from "langchain/vectorstores/hnswlib";
 import { PromptTemplate } from "langchain/prompts";
 import { LLMChainInput } from "langchain/dist/chains/llm_chain";
-import { ChainValues } from "langchain/schema";
+import { ChainValues } from "langchain/schema"
 import { CallbackManager } from "langchain/callbacks";
 
 const SYSTEM_MESSAGE = PromptTemplate.fromTemplate(
@@ -98,7 +99,7 @@ interface qaParams {
 
 // use this custom qa chain instead of the default one
 //const loadQAChain = (llm: BaseLLM, params: qaParams = {}) => {
-//  const { prompt = QA_PROMPT } = params;
+//const { prompt = QA_PROMPT } = params;
 //  const llmChain = new OpenAIChatLLMChain({ prompt, llm });
 //  const chain = new ChatStuffDocumentsChain({ llmChain });
 //  return chain;
