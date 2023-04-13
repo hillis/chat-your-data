@@ -4,6 +4,8 @@ import { PineconeStore } from "langchain/vectorstores/pinecone";
 import { ChatPromptTemplate, HumanMessagePromptTemplate, PromptTemplate, SystemMessagePromptTemplate } from "langchain/prompts";
 import { CallbackManager } from "langchain/callbacks";
 import { ChainValues } from "langchain/schema";
+import { LLMChainInput } from "langchain/dist/chains/llm_chain";
+
 
 
 
