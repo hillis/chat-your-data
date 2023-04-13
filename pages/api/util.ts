@@ -1,8 +1,9 @@
 import { OpenAIChat} from "langchain/llms/openai";
-import { LLMChain, loadQAChain, ChatVectorDBQAChain } from "langchain/chains";
+import { LLMChain, loadQAChain, ChatVectorDBQAChain, StuffDocumentsChain, VectorDBQAChain} from "langchain/chains";
 import { PineconeStore } from "langchain/vectorstores/pinecone";
 import { ChatPromptTemplate, HumanMessagePromptTemplate, PromptTemplate, SystemMessagePromptTemplate } from "langchain/prompts";
 import { CallbackManager } from "langchain/callbacks";
+import { ChainValues } from "langchain/schema";
 
 
 
@@ -30,7 +31,7 @@ You can also answer questions about any data found in the index.
   HumanMessagePromptTemplate.fromTemplate("{question}"),
 ]);
 
-/* 
+ 
 const SYSTEM_MESSAGE = PromptTemplate.fromTemplate(
   `You are an AI assistant that knows about sports from Alabama High School Athletic Association and AHSAA.  AHSAA stands for Alabama High School Atheltic Association.  AHSAA covers 6th - 12th grade sports for Public and Private schools in Alabama. Anything you are not able to answer say I do not know.
 You are given the following data from each School sport from the AHSAA.  The data has the Rules, Procedures and team Polices.  The context is between two '========='. Provide conversational answers in Markdown syntax with links formatted as hyperlinks.
@@ -39,7 +40,7 @@ If the question is not about AHSAA sports, rules or team Polices, politely infor
 =========
 {context}
 =========`
-); */
+); 
   //
 //  Saved Version for FHA Loan Data
 //(
@@ -63,7 +64,7 @@ If the question is not about AHSAA sports, rules or team Polices, politely infor
 // After: Find related docs from the question -> combine docs and insert them into predefined system message -> pass in the chat history -> generate answer
 
 
-/* //Exporting OpenAIChatLLMChain to be used in the custom qa chain
+ //Exporting OpenAIChatLLMChain to be used in the custom qa chain
 export class OpenAIChatLLMChain extends LLMChain implements LLMChainInput {
   async _call(values: ChainValues): Promise<ChainValues> {
     let stop;
@@ -141,13 +142,13 @@ interface qaParams {
 }
 
 // use this custom qa chain instead of the default one
-const loadQAChain = (llm: BaseLLM, params: qaParams = {}) => {
-  const { prompt = QA_PROMPT } = params;
-  const llmChain = new OpenAIChatLLMChain({ prompt, llm });
-  const chain = new ChatStuffDocumentsChain({ llmChain });
-  return chain;
-}
- */
+//const loadQAChain = (llm: BaseLLM, params: qaParams = {}) => {
+//  const { prompt = QA_PROMPT } = params;
+//  const llmChain = new OpenAIChatLLMChain({ prompt, llm });
+//  const chain = new ChatStuffDocumentsChain({ llmChain });
+//  return chain;
+//}
+ 
 
 export const makeChain = (
   vectorstore: PineconeStore,
