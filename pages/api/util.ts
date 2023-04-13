@@ -109,7 +109,7 @@ interface qaParams {
 export const makeChain = (vectorstore: HNSWLib, onTokenStream?: (token: string) => void) => {
   
   const questionGenerator = new LLMChain({
-    llm: new OpenAIChat({ temprature: 0, modelName: 'gpt-3.5-turbo' }),
+    llm: new OpenAIChat({ temperature: 0, modelName: 'gpt-3.5-turbo' }),
     prompt: QA_PROMPT,
   });
   
