@@ -17,6 +17,7 @@
     "@microsoft/fetch-event-source": "^2.0.1",
     "@mui/material": "^5.11.4",
     "@vercel/analytics": "^0.1.11",
+    "axios": "^0.30.0",
     "dotenv": "^16.0.3",
     "eslint": "8.34.0",
     "eslint-config-next": "^13.2.4",
@@ -31,6 +32,9 @@
     "remark-gfm": "^3.0.1",
     "sharp": "^0.31.3",
     "ws": "^8.12.1"
+  },
+  "resolutions": {
+    "axios": "^0.30.0"
   },
   "devDependencies": {
     "@types/adm-zip": "^0.5.0",
