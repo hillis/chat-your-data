@@ -1,3 +1,5 @@
+This Project is Archived 
+
 # **Chat your Data**
 
 Chat your Data is an application built using Next.js, React, and OpenAI. This project allows users to communicate with an AI-based chatbot that provides relevant answers to users' queries. The application uses natural language processing (NLP) technology to understand users' queries and provide accurate responses.
